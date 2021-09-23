@@ -1,0 +1,142 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XWOS – Lua手册</title>
+    <link>/docs/lua-manual/</link>
+    <description>Recent content in Lua手册 on XWOS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/docs/lua-manual/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 全局导出表</title>
+      <link>/docs/lua-manual/xwxt/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwxt/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;介绍&#34;&gt;介绍&lt;/h2&gt;
+&lt;p&gt;原生的Lua语言不支持多线程，脚本中的全局变量只能由执行脚本的线程自身访问。
+XWLUA在C语言中开发了多线程的功能，每个线程都拥有一个独立的Lua虚拟机。
+为了实现多线程共享数据，XWLUA中实现了一个&lt;strong&gt;全局导出表(xwxt)&lt;/strong&gt;，全局导出表中
+的数据被所有线程可见。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Lua&#34; data-lang=&#34;Lua&#34;&gt;xwxt.a &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 在xwxt中创建Number变量a，并赋值3，xwxt.a可被所有线程看见&lt;/span&gt;
+xwxt[&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 与上一句等价&lt;/span&gt;
+
+xwxt.f &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;function&lt;/span&gt; () print(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;HI, XWOS&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 在xwxt中创建函数f，xwxt.f可被所有线程访问&lt;/span&gt;
+xwxt[&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;f&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;function&lt;/span&gt; () print(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;HI, XWOS&amp;#34;&lt;/span&gt;) &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;end&lt;/span&gt; &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 与上一句等价&lt;/span&gt;
+
+myfunc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwxt.f &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 任意线程都可从全局导出表中获取函数f&lt;/span&gt;
+
+xwxt.f &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;nil&lt;/span&gt; &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 删除xwxt中的函数f&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;全局导出表的&lt;strong&gt;索引(key)&lt;strong&gt;只能是&lt;/strong&gt;字符串&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;Lua中的原生数据类型，导出到全局导出表时，会做一次&lt;strong&gt;深&lt;/strong&gt;拷贝，这些数据类型是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数值类型：直接拷贝；&lt;/li&gt;
+&lt;li&gt;字符串：直接拷贝；&lt;/li&gt;
+&lt;li&gt;函数：dump()成字符串后拷贝；&lt;/li&gt;
+&lt;li&gt;布尔类型：直接拷贝；&lt;/li&gt;
+&lt;li&gt;表：
+&lt;ul&gt;
+&lt;li&gt;如果&lt;code&gt;metatable[&amp;quot;__copy&amp;quot;]&lt;/code&gt;是一个函数，则执行&lt;code&gt;metatable.__copy()&lt;/code&gt;函数；&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;metatable[&amp;quot;__copy&amp;quot;]&lt;/code&gt;为空或不是函数，则依次拷贝表中以及metatable中的
+每一个键值对，但若被拷贝的键值对的&lt;strong&gt;key&lt;/strong&gt;不为字符串，就跳过。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;userdata：
+&lt;ul&gt;
+&lt;li&gt;如果&lt;code&gt;metatable[&amp;quot;__copy&amp;quot;]&lt;/code&gt;是一个函数，则执行&lt;code&gt;metatable.__copy()&lt;/code&gt;函数；&lt;/li&gt;
+&lt;li&gt;如果&lt;code&gt;metatable[&amp;quot;__copy&amp;quot;]&lt;/code&gt;为空或不是函数，什么也不做；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;lightuserdata：同userdata。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h4 id=&#34;导出&#34;&gt;导出&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：导出操作等价于对表xwxt中的元素的赋值，但索引(key)必须为字符串。
+&lt;blockquote&gt;
+&lt;p&gt;Lua中若索引为字符串，可以使用&lt;code&gt;table.key&lt;/code&gt;或&lt;code&gt;table[&amp;quot;key&amp;quot;]&lt;/code&gt;来表达。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;用法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Lua&#34; data-lang=&#34;Lua&#34;&gt;xwxt.NAME &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; object
+xwxt[&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;NAME&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;导入&#34;&gt;导入&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：导入操作等价于访问表xwxt中的元素，但索引(key)必须为字符串。
+&lt;blockquote&gt;
+&lt;p&gt;Lua中若索引为字符串，可以使用&lt;code&gt;table.key&lt;/code&gt;或&lt;code&gt;table[&amp;quot;key&amp;quot;]&lt;/code&gt;来表达。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;用法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Lua&#34; data-lang=&#34;Lua&#34;&gt;xwxt.NAME &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; object
+xwxt[&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;NAME&amp;#34;&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwxtgc&#34;&gt;xwxt.gc()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：强制xwxt做一次垃圾回收&lt;/li&gt;
+&lt;li&gt;用法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-Lua&#34; data-lang=&#34;Lua&#34;&gt;xwxt.gc()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: XWOS内核库</title>
+      <link>/docs/lua-manual/xwos/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;对象强指针&#34;&gt;对象强指针&lt;/h2&gt;
+&lt;p&gt;XWLUA使用&lt;strong&gt;对象强指针&lt;/strong&gt;管理XWOS内核库中的对象（线程、信号量、条件量、事件标志、
+信号选择器、线程栅栏、互斥锁、自旋锁、顺序锁），在Lua语言中对象强指针是一种&lt;strong&gt;userdata&lt;/strong&gt;。
+对象强指针就是对XWOS中的&lt;a href=&#34;../../user-manual/basic-promise#%E5%AF%B9%E8%B1%A1%E6%8F%8F%E8%BF%B0%E7%AC%A6&#34;&gt;对象描述符&lt;/a&gt;的封装。&lt;/p&gt;
+&lt;p&gt;Lua虚拟机（一个独立的线程）每强引用一个&lt;strong&gt;对象强指针&lt;/strong&gt;，都会增加相关联线程的引用计数，
+Lua虚拟机（一个独立的线程）每解引用一个&lt;strong&gt;对象强指针&lt;/strong&gt;，都会减少相关联线程的引用计数。
+当所有Lua虚拟机都不再持有对象的强指针，对象就会被回收并释放内存。&lt;/p&gt;
+&lt;p&gt;强指针的概念源于Lua语言的&lt;strong&gt;强引用&lt;/strong&gt;，Lua语言中，被符号命名的userdata，就表示持有userdata的强引用。&lt;/p&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 基本函数库</title>
+      <link>/docs/lua-manual/xwlib/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwlib/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 玄武设备栈</title>
+      <link>/docs/lua-manual/xwds/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

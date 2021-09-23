@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.88.1" /><META NAME="ROBOTS" CONTENT="INDEX, FOLLOW">
+
+
+<link rel="shortcut icon" href="/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/favicons/android-192x192.png" sizes="192x192">
+
+<title>玄武内核模块 | XWOS</title>
+
+
+  
+  <meta name="description" content="安装编译工具
+emacs
+
+用途：执行elisp脚本
+安装方法
+
+sudo apt-add-repository ppa:kelleyk/emacs
+sudo apt-get update
+sudo apt install emacs27
+bash
+
+用途：执行shell脚本
+安装方法
+
+sudo …">
+<meta property="og:title" content="玄武内核模块" />
+<meta property="og:description" content="安装编译工具 emacs  用途：执行elisp脚本 安装方法  sudo apt-add-repository ppa:kelleyk/emacs sudo apt-get update sudo apt install emacs27 bash  用途：执行shell脚本 安装方法  sudo dpkg-reconfigure dash # 选择“否” build-essential  用途：这是一个虚包，此包会通过依赖将相关的一系列工具(make, gcc, …) 全部安装到系统。 安装方法  sudo apt install build-essential 在Linux内核中运行玄武内核模块 假定工作目录为 ~ 。
+下载源码 cd ~ git clone https://gitee.com/xwos/XWKO.git 编译 cd ~/XWKO/xwbd/pc make 运行演示代码：hixwos 玄武内核模块中已经包含演示代码：
+ 路径：xwam/example/hixwos 源文件：xwmo.c 头文件：mif.h 编译规则：xwmo.mk  hixwos的运行流程  在xwbd/pc/cfg/xwam.h中将宏开关XWAMCFG_example_hixwos定义为1即可； 玄武内核模块安装到内核(insmod)时，位于xwbd/pc/bdl/board.c中 的board_example_init()函数会调用hixwos_init()完成初始化工作； 玄武内核模块卸载(rmmod)时，board_example_exit()会调用hixwos_exit()完成清理工作。  安装模块 cd ~/XWKO/xwbd/pc sudo insmod wkspc/xwos." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/docs/quick-guide/xwko/" /><meta property="article:section" content="docs" />
+
+<meta property="og:site_name" content="XWOS" />
+
+<meta itemprop="name" content="玄武内核模块">
+<meta itemprop="description" content="安装编译工具 emacs  用途：执行elisp脚本 安装方法  sudo apt-add-repository ppa:kelleyk/emacs sudo apt-get update sudo apt install emacs27 bash  用途：执行shell脚本 安装方法  sudo dpkg-reconfigure dash # 选择“否” build-essential  用途：这是一个虚包，此包会通过依赖将相关的一系列工具(make, gcc, …) 全部安装到系统。 安装方法  sudo apt install build-essential 在Linux内核中运行玄武内核模块 假定工作目录为 ~ 。
+下载源码 cd ~ git clone https://gitee.com/xwos/XWKO.git 编译 cd ~/XWKO/xwbd/pc make 运行演示代码：hixwos 玄武内核模块中已经包含演示代码：
+ 路径：xwam/example/hixwos 源文件：xwmo.c 头文件：mif.h 编译规则：xwmo.mk  hixwos的运行流程  在xwbd/pc/cfg/xwam.h中将宏开关XWAMCFG_example_hixwos定义为1即可； 玄武内核模块安装到内核(insmod)时，位于xwbd/pc/bdl/board.c中 的board_example_init()函数会调用hixwos_init()完成初始化工作； 玄武内核模块卸载(rmmod)时，board_example_exit()会调用hixwos_exit()完成清理工作。  安装模块 cd ~/XWKO/xwbd/pc sudo insmod wkspc/xwos.">
+
+<meta itemprop="wordCount" content="71">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="玄武内核模块"/>
+<meta name="twitter:description" content="安装编译工具 emacs  用途：执行elisp脚本 安装方法  sudo apt-add-repository ppa:kelleyk/emacs sudo apt-get update sudo apt install emacs27 bash  用途：执行shell脚本 安装方法  sudo dpkg-reconfigure dash # 选择“否” build-essential  用途：这是一个虚包，此包会通过依赖将相关的一系列工具(make, gcc, …) 全部安装到系统。 安装方法  sudo apt install build-essential 在Linux内核中运行玄武内核模块 假定工作目录为 ~ 。
+下载源码 cd ~ git clone https://gitee.com/xwos/XWKO.git 编译 cd ~/XWKO/xwbd/pc make 运行演示代码：hixwos 玄武内核模块中已经包含演示代码：
+ 路径：xwam/example/hixwos 源文件：xwmo.c 头文件：mif.h 编译规则：xwmo.mk  hixwos的运行流程  在xwbd/pc/cfg/xwam.h中将宏开关XWAMCFG_example_hixwos定义为1即可； 玄武内核模块安装到内核(insmod)时，位于xwbd/pc/bdl/board.c中 的board_example_init()函数会调用hixwos_init()完成初始化工作； 玄武内核模块卸载(rmmod)时，board_example_exit()会调用hixwos_exit()完成清理工作。  安装模块 cd ~/XWKO/xwbd/pc sudo insmod wkspc/xwos."/>
+
+
+
+
+<link rel="preload" href="/scss/main.min.5aa95e37a8383dec1990bc42d5035ebedc3e558b38602c520f66997cad739a56.css" as="style">
+<link href="/scss/main.min.5aa95e37a8383dec1990bc42d5035ebedc3e558b38602c520f66997cad739a56.css" rel="stylesheet" integrity="">
+
+
+<script
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"></script>
+
+<script
+  src="https://unpkg.com/lunr@2.3.8/lunr.min.js"
+  integrity="sha384-vRQ9bDyE0Wnu+lMfm57BlYLO0/XauFuKpVsZPs7KEDwYKktWi5+Kz3MP8++DFlRY"
+  crossorigin="anonymous"></script>
+
+
+
+<link rel="stylesheet" href="/css/prism.css"/>
+
+
+
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-556RX9P3T5"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-556RX9P3T5', { 'anonymize_ip': false });
+}
+</script>
+
+
+
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/">
+		<span class="navbar-logo"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 2560"><path fill="#fff" d="M0 1810.1553l219.82044-530.1552L.13063863 749.84488 530.28555 530.28549 749.71426 125e-7 1280 219.82035 1810.1553.26115l219.5592 530.02434L2560 749.71425 2340.1796 1280.0001l219.559 530.1552-530.1549 219.5592L1810.0244 2560 1280 2340.1796 749.84499 2559.739 530.28576 2029.7145.0 1810.286zM341.42045 891.16725 502.4652 1280.0001 341.42045 1668.8329l388.70206 160.9142 161.04475 388.8328L1280 2057.535l388.8328 161.0449 160.9142-388.8328 388.8326-160.9142-161.045-388.8328 161.045-388.83285-388.702-161.045-160.9144-388.70199L1280 502.46518 891.16726 341.42026 730.12251 730.12225z"/></svg></span><span class="text-uppercase font-weight-bold">XWOS</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				
+				
+				<a class="nav-link active" href="/docs/" ><i class="fas fa-book"></i><span class="active">文档</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="https://gitee.com/xwos/XWOS/" target="_blank" ><i class='xwico-gitee'></i><span>gitee</span></a>
+			</li>
+			
+			<li class="nav-item mr-4 mb-2 mb-lg-0">
+				
+				
+				
+				
+				
+				
+				<a class="nav-link" href="https://github.com/xwos/XWOS/" target="_blank" ><i class='fab fa-github'></i><span>github</span></a>
+			</li>
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block">
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; 站内搜索…"
+  aria-label="站内搜索…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.231b28a29bef6bf2ea1d4e913524d36a.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+</div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+
+
+
+<input
+  type="search"
+  class="form-control td-search-input"
+  placeholder="&#xf002; 站内搜索…"
+  aria-label="站内搜索…"
+  autocomplete="off"
+  
+  data-offline-search-index-json-src="/offline-search-index.231b28a29bef6bf2ea1d4e913524d36a.json"
+  data-offline-search-base-href="/"
+  data-offline-search-max-results="10"
+>
+
+
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docs-li">
+  <a href="/docs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-docs"><span class="">文档</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-docsquick-guide-li">
+  <a href="/docs/quick-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-guide"><span class="">上手指南</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsquick-guidestm32-li">
+  <a href="/docs/quick-guide/stm32/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-guidestm32"><span class="">STM32</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32env-li">
+  <a href="/docs/quick-guide/stm32/env/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32env"><span class="">开发环境</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32fk429m1-li">
+  <a href="/docs/quick-guide/stm32/fk429m1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32fk429m1"><span class="">反客Stm32F429核心板</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32weactministm32h750-li">
+  <a href="/docs/quick-guide/stm32/weactministm32h750/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32weactministm32h750"><span class="">微行电子MiniStm32H750</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32embedfirestm32h743-li">
+  <a href="/docs/quick-guide/stm32/embedfirestm32h743/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32embedfirestm32h743"><span class="">野火Stm32H743 Pro开发板</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32atkstm32h743-li">
+  <a href="/docs/quick-guide/stm32/atkstm32h743/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32atkstm32h743"><span class="">正点原子阿波罗Stm32H743开发板</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32atkstm32f407core-li">
+  <a href="/docs/quick-guide/stm32/atkstm32f407core/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32atkstm32f407core"><span class="">正点原子Stm32F407核心板</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidestm32atkstm32f103core-li">
+  <a href="/docs/quick-guide/stm32/atkstm32f103core/" title="正点原子Stm32F103核心板" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidestm32atkstm32f103core"><span class="">正点原子Stm32F107核心板</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsquick-guidegd32-li">
+  <a href="/docs/quick-guide/gd32/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-guidegd32"><span class="">GD32</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidegd32env-li">
+  <a href="/docs/quick-guide/gd32/env/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidegd32env"><span class="">开发环境</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsquick-guidegd32v-li">
+  <a href="/docs/quick-guide/gd32v/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-guidegd32v"><span class="">GD32V</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guidegd32venv-li">
+  <a href="/docs/quick-guide/gd32v/env/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidegd32venv"><span class="">开发环境</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsquick-guides32k-li">
+  <a href="/docs/quick-guide/s32k/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsquick-guides32k"><span class="">S32K</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsquick-guides32kenv-li">
+  <a href="/docs/quick-guide/s32k/env/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsquick-guides32kenv"><span class="">开发环境</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-docsquick-guidexwko-li">
+  <a href="/docs/quick-guide/xwko/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-docsquick-guidexwko"><span class="td-sidebar-nav-active-item">玄武内核模块</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manual-li">
+  <a href="/docs/user-manual/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manual"><span class="">用户手册</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualarchitecture-li">
+  <a href="/docs/user-manual/architecture/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualarchitecture"><span class="">软件架构</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualbasic-promise-li">
+  <a href="/docs/user-manual/basic-promise/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualbasic-promise"><span class="">基本约束</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualconfiguration-li">
+  <a href="/docs/user-manual/configuration/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualconfiguration"><span class="">配置</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualbuild-system-li">
+  <a href="/docs/user-manual/build-system/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualbuild-system"><span class="">构建系统</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualboot-flow-li">
+  <a href="/docs/user-manual/boot-flow/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualboot-flow"><span class="">启动流程</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualirq-li">
+  <a href="/docs/user-manual/irq/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualirq"><span class="">中断控制</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualskd-li">
+  <a href="/docs/user-manual/skd/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualskd"><span class="">调度器</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualthd-li">
+  <a href="/docs/user-manual/thd/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualthd"><span class="">线程</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualswt-li">
+  <a href="/docs/user-manual/swt/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualswt"><span class="">软件定时器</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualpm-li">
+  <a href="/docs/user-manual/pm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualpm"><span class="">电源管理</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manuallock-li">
+  <a href="/docs/user-manual/lock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manuallock"><span class="">锁</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manuallockspinlock-li">
+  <a href="/docs/user-manual/lock/spinlock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manuallockspinlock"><span class="">自旋锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manuallockseqlock-li">
+  <a href="/docs/user-manual/lock/seqlock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manuallockseqlock"><span class="">顺序锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manuallockmutex-li">
+  <a href="/docs/user-manual/lock/mutex/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manuallockmutex"><span class="">互斥锁</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manualsync-li">
+  <a href="/docs/user-manual/sync/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualsync"><span class="">同步</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualsyncsem-li">
+  <a href="/docs/user-manual/sync/sem/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualsyncsem"><span class="">信号量</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualsynccond-li">
+  <a href="/docs/user-manual/sync/cond/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualsynccond"><span class="">条件量</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualsyncflg-li">
+  <a href="/docs/user-manual/sync/flg/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualsyncflg"><span class="">事件标志</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualsyncbr-li">
+  <a href="/docs/user-manual/sync/br/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualsyncbr"><span class="">线程栅栏</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualsyncsel-li">
+  <a href="/docs/user-manual/sync/sel/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualsyncsel"><span class="">信号选择器</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manualmm-li">
+  <a href="/docs/user-manual/mm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualmm"><span class="">内存管理</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualmmsma-li">
+  <a href="/docs/user-manual/mm/sma/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualmmsma"><span class="">简单内存分配器</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualmmmemslice-li">
+  <a href="/docs/user-manual/mm/memslice/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualmmmemslice"><span class="">内存切片分配器</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualmmbma-li">
+  <a href="/docs/user-manual/mm/bma/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualmmbma"><span class="">伙伴算法分配器</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualmmmempool-li">
+  <a href="/docs/user-manual/mm/mempool/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualmmmempool"><span class="">内存池</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manualxwlib-li">
+  <a href="/docs/user-manual/xwlib/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualxwlib"><span class="">XWOS基本C函数库</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualxwlibxwbop-li">
+  <a href="/docs/user-manual/xwlib/xwbop/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualxwlibxwbop"><span class="">位操作库</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualxwlibxwaop-li">
+  <a href="/docs/user-manual/xwlib/xwaop/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualxwlibxwaop"><span class="">原子操作库</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualxwliblog-li">
+  <a href="/docs/user-manual/xwlib/log/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualxwliblog"><span class="">日志</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualxwlibcrc-li">
+  <a href="/docs/user-manual/xwlib/crc/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualxwlibcrc"><span class="">CRC</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsuser-manualc-c-li">
+  <a href="/docs/user-manual/c-c&#43;&#43;/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualc-c"><span class="">C/C&#43;&#43;</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualc-clibc-li">
+  <a href="/docs/user-manual/c-c&#43;&#43;/libc/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualc-clibc"><span class="">libc</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualc-cc-li">
+  <a href="/docs/user-manual/c-c&#43;&#43;/c&#43;&#43;/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsuser-manualc-cc"><span class="">C&#43;&#43;</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsuser-manualisc-li">
+  <a href="/docs/user-manual/isc/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsuser-manualisc"><span class="">通讯</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manual-li">
+  <a href="/docs/lua-manual/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manual"><span class="">Lua手册</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwxt-li">
+  <a href="/docs/lua-manual/xwxt/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwxt"><span class="">全局导出表</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manualxwos-li">
+  <a href="/docs/lua-manual/xwos/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwos"><span class="">XWOS内核库</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwosthd-li">
+  <a href="/docs/lua-manual/xwos/thd/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwosthd"><span class="">线程</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manualxwoslock-li">
+  <a href="/docs/lua-manual/xwos/lock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwoslock"><span class="">锁</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwoslockspinlock-li">
+  <a href="/docs/lua-manual/xwos/lock/spinlock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwoslockspinlock"><span class="">自旋锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwoslockseqlock-li">
+  <a href="/docs/lua-manual/xwos/lock/seqlock/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwoslockseqlock"><span class="">顺序锁</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwoslockmutex-li">
+  <a href="/docs/lua-manual/xwos/lock/mutex/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwoslockmutex"><span class="">互斥锁</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manualxwossync-li">
+  <a href="/docs/lua-manual/xwos/sync/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwossync"><span class="">同步</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwossyncsem-li">
+  <a href="/docs/lua-manual/xwos/sync/sem/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwossyncsem"><span class="">信号量</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwossynccond-li">
+  <a href="/docs/lua-manual/xwos/sync/cond/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwossynccond"><span class="">条件量</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwossyncflg-li">
+  <a href="/docs/lua-manual/xwos/sync/flg/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwossyncflg"><span class="">事件标志</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwossyncbr-li">
+  <a href="/docs/lua-manual/xwos/sync/br/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwossyncbr"><span class="">线程栅栏</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwossyncsel-li">
+  <a href="/docs/lua-manual/xwos/sync/sel/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwossyncsel"><span class="">信号选择器</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwospm-li">
+  <a href="/docs/lua-manual/xwos/pm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwospm"><span class="">电源管理</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manualxwlib-li">
+  <a href="/docs/lua-manual/xwlib/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwlib"><span class="">基本函数库</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwlibbitmap-li">
+  <a href="/docs/lua-manual/xwlib/bitmap/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwlibbitmap"><span class="">位图</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docslua-manualxwds-li">
+  <a href="/docs/lua-manual/xwds/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docslua-manualxwds"><span class="">玄武设备栈</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwdssoc-li">
+  <a href="/docs/lua-manual/xwds/soc/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwdssoc"><span class="">SOC</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwdsgpio-li">
+  <a href="/docs/lua-manual/xwds/gpio/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwdsgpio"><span class="">GPIO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwdsuart-li">
+  <a href="/docs/lua-manual/xwds/uart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwdsuart"><span class="">UART</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwdsspi-master-li">
+  <a href="/docs/lua-manual/xwds/spi-master/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwdsspi-master"><span class="">SPI主机模式</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslua-manualxwdsiic-master-li">
+  <a href="/docs/lua-manual/xwds/iic-master/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslua-manualxwdsiic-master"><span class="">IIC主机模式</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsnote-li">
+  <a href="/docs/note/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsnote"><span class="">笔记</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsnotesoc-li">
+  <a href="/docs/note/soc/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsnotesoc"><span class="">SOC移植笔记</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsnotesocarm-m-li">
+  <a href="/docs/note/soc/arm-m/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsnotesocarm-m"><span class="">ARM-Cortex-M移植说明</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsnotesocarm-mstm32-li">
+  <a href="/docs/note/soc/arm-m/stm32/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsnotesocarm-mstm32"><span class="">STM32移植说明</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsnotesocrisc-v-li">
+  <a href="/docs/note/soc/risc-v/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsnotesocrisc-v"><span class="">RISC-V移植说明</span></a>
+  <ul class="ul-4 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsnotesocrisc-vgd32v-li">
+  <a href="/docs/note/soc/risc-v/gd32v/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsnotesocrisc-vgd32v"><span class="">GD32V移植说明</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docsnotenewlib-li">
+  <a href="/docs/note/newlib/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docsnotenewlib"><span class="">newlib笔记</span></a>
+  <ul class="ul-3 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsnotenewlibmulti-thread-li">
+  <a href="/docs/note/newlib/multi-thread/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsnotenewlibmulti-thread"><span class="">多线程</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsnotenewlibmm-li">
+  <a href="/docs/note/newlib/mm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsnotenewlibmm"><span class="">动态内存管理</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docsnotenewliberrno-li">
+  <a href="/docs/note/newlib/errno/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docsnotenewliberrno"><span class="">errno</span></a>
+</li>
+  </ul>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-docscriterion-li">
+  <a href="/docs/criterion/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-docscriterion"><span class="">规范</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscriteriongit-msg-li">
+  <a href="/docs/criterion/git-msg/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docscriteriongit-msg"><span class="">git-msg规范</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docscriterionversion-branch-li">
+  <a href="/docs/criterion/version-branch/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docscriterionversion-branch"><span class="">分支与版本号规范</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-docslicense-li">
+  <a href="/docs/license/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-docslicense"><span class="">开源协议</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+  
+  
+  
+  
+  
+  
+  <div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+  
+    
+    
+      
+    
+    
+    
+    
+    
+    
+    
+
+    <a href="https://github.com/xwos/xwos.github.io/edit/master/content/zh/docs/quick-guide/xwko/index.md" target="_blank"><i class="fa fa-edit fa-fw"></i> 编辑此页</a>
+    <a href="https://github.com/xwos/xwos.github.io/new/master/content/zh/docs/quick-guide/xwko/index.md?filename=change-me.md&amp;value=---%0Atitle%3A&#43;%22Long&#43;Page&#43;Title%22%0AlinkTitle%3A&#43;%22Short&#43;Nav&#43;Title%22%0Aweight%3A&#43;100%0Adescription%3A&#43;%3E-%0A&#43;&#43;&#43;&#43;&#43;Page&#43;description&#43;for&#43;heading&#43;and&#43;indexes.%0A---%0A%0A%23%23&#43;Heading%0A%0AEdit&#43;this&#43;template&#43;to&#43;create&#43;your&#43;new&#43;page.%0A%0A%2A&#43;Give&#43;it&#43;a&#43;good&#43;name%2C&#43;ending&#43;in&#43;%60.md%60&#43;-&#43;e.g.&#43;%60getting-started.md%60%0A%2A&#43;Edit&#43;the&#43;%22front&#43;matter%22&#43;section&#43;at&#43;the&#43;top&#43;of&#43;the&#43;page&#43;%28weight&#43;controls&#43;how&#43;its&#43;ordered&#43;amongst&#43;other&#43;pages&#43;in&#43;the&#43;same&#43;directory%3B&#43;lowest&#43;number&#43;first%29.%0A%2A&#43;Add&#43;a&#43;good&#43;commit&#43;message&#43;at&#43;the&#43;bottom&#43;of&#43;the&#43;page&#43;%28%3C80&#43;characters%3B&#43;use&#43;the&#43;extended&#43;description&#43;field&#43;for&#43;more&#43;detail%29.%0A%2A&#43;Create&#43;a&#43;new&#43;branch&#43;so&#43;you&#43;can&#43;preview&#43;your&#43;new&#43;file&#43;and&#43;request&#43;a&#43;review&#43;via&#43;Pull&#43;Request.%0A" target="_blank"><i class="fa fa-edit fa-fw"></i> 添加子页面</a>
+    <a href="https://github.com/xwos/xwos.github.io/issues/new?title=%e7%8e%84%e6%ad%a6%e5%86%85%e6%a0%b8%e6%a8%a1%e5%9d%97" target="_blank"><i class="fab fa-github fa-fw"></i> 提交文档问题</a>
+    
+
+  
+  
+  </div>
+
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#安装编译工具">安装编译工具</a>
+      <ul>
+        <li><a href="#emacs">emacs</a></li>
+        <li><a href="#bash">bash</a></li>
+        <li><a href="#build-essential">build-essential</a></li>
+      </ul>
+    </li>
+    <li><a href="#在linux内核中运行玄武内核模块">在Linux内核中运行玄武内核模块</a>
+      <ul>
+        <li><a href="#下载源码">下载源码</a></li>
+        <li><a href="#编译">编译</a></li>
+        <li><a href="#运行演示代码hixwos">运行演示代码：hixwos</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+
+
+
+  
+  
+
+	
+		
+
+
+
+  
+  
+
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+	<ol class="breadcrumb spb-1">
+		
+
+
+
+
+
+
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/">文档</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item" >
+	<a href="/docs/quick-guide/">上手指南</a>
+</li>
+
+
+
+
+<li class="breadcrumb-item active" aria-current="page">
+	<a href="/docs/quick-guide/xwko/">玄武内核模块</a>
+</li>
+
+	</ol>
+</nav	>
+
+            
+<div class="td-content">
+	<h1>玄武内核模块</h1>
+	
+	<header class="article-meta">
+		
+		
+			
+				
+
+
+			
+				
+
+
+			
+		
+		
+	</header>    
+	<h2 id="安装编译工具">安装编译工具</h2>
+<h3 id="emacs">emacs</h3>
+<ul>
+<li>用途：执行elisp脚本</li>
+<li>安装方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt-add-repository ppa:kelleyk/emacs
+sudo apt-get update
+sudo apt install emacs27
+</code></pre></div><h3 id="bash">bash</h3>
+<ul>
+<li>用途：执行shell脚本</li>
+<li>安装方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo dpkg-reconfigure dash <span style="color:#080;font-style:italic"># 选择“否”</span>
+</code></pre></div><h3 id="build-essential">build-essential</h3>
+<ul>
+<li>用途：这是一个虚包，此包会通过依赖将相关的一系列工具(make, gcc, …)
+全部安装到系统。</li>
+<li>安装方法</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo apt install build-essential
+</code></pre></div><h2 id="在linux内核中运行玄武内核模块">在Linux内核中运行玄武内核模块</h2>
+<p>假定工作目录为 <strong>~</strong> 。</p>
+<h3 id="下载源码">下载源码</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#a2f">cd</span> ~
+git clone https://gitee.com/xwos/XWKO.git
+</code></pre></div><h3 id="编译">编译</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#a2f">cd</span> ~/XWKO/xwbd/pc
+make
+</code></pre></div><p><img src="XwkoBuilding.png" alt="img" title="编译过程"></p>
+<h3 id="运行演示代码hixwos">运行演示代码：hixwos</h3>
+<p>玄武内核模块中已经包含演示代码：</p>
+<ul>
+<li>路径：<code>xwam/example/hixwos</code></li>
+<li>源文件：<code>xwmo.c</code></li>
+<li>头文件：<code>mif.h</code></li>
+<li>编译规则：<code>xwmo.mk</code></li>
+</ul>
+<h4 id="hixwos的运行流程">hixwos的运行流程</h4>
+<ul>
+<li>在<code>xwbd/pc/cfg/xwam.h</code>中将宏开关<code>XWAMCFG_example_hixwos</code>定义为<code>1</code>即可；</li>
+<li>玄武内核模块安装到内核(<code>insmod</code>)时，位于<code>xwbd/pc/bdl/board.c</code>中
+的<code>board_example_init()</code>函数会调用<code>hixwos_init()</code>完成初始化工作；</li>
+<li>玄武内核模块卸载(<code>rmmod</code>)时，<code>board_example_exit()</code>会调用<code>hixwos_exit()</code>完成清理工作。</li>
+</ul>
+<h4 id="安装模块">安装模块</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh"><span style="color:#a2f">cd</span> ~/XWKO/xwbd/pc
+sudo insmod wkspc/xwos.ko
+</code></pre></div><h4 id="查看玄武内核模块的输出">查看玄武内核模块的输出</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dmesg
+</code></pre></div><p>此演示代码中创建了两个线程，Producer线程与Consumer线程，从log中可以看到
+两个线程通过信号量进行同步，3秒钟后退出。</p>
+<p><img src="XwkoRunning.png" alt="img" title="运行过程"></p>
+<h4 id="卸载模块">卸载模块</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">sudo rmmod xwos.ko
+</code></pre></div>
+	
+		<style>
+  .feedback--answer {
+    display: inline-block;
+  }
+  .feedback--answer-no {
+    margin-left: 1em;
+  }
+  .feedback--response {
+    display: none;
+    margin-top: 1em;
+  }
+  .feedback--response__visible {
+    display: block;
+  }
+</style>
+<div class="d-print-none">
+<h2 class="feedback--title">Feedback</h2>
+<p class="feedback--question">Was this page helpful?</p>
+<button class="btn btn-primary mb-4 feedback--answer feedback--answer-yes">Yes</button>
+<button class="btn btn-primary mb-4 feedback--answer feedback--answer-no">No</button>
+<p class="feedback--response feedback--response-yes">
+  Glad to hear it! Please <a href="https://gitee.com/xwos/XWOS/issues/new">tell us how we can make it even better</a>.
+</p>
+<p class="feedback--response feedback--response-no">
+  Sorry to hear that. Please <a href="https://gitee.com/xwos/XWOS/issues/new">tell us how we can improve</a>.
+</p>
+</div>
+<script>
+  const yesButton = document.querySelector('.feedback--answer-yes');
+  const noButton = document.querySelector('.feedback--answer-no');
+  const yesResponse = document.querySelector('.feedback--response-yes');
+  const noResponse = document.querySelector('.feedback--response-no');
+  const disableButtons = () => {
+    yesButton.disabled = true;
+    noButton.disabled = true;
+  };
+  const sendFeedback = (value) => {
+    if (typeof ga !== 'function') return;
+    const args = {
+      command: 'send',
+      hitType: 'event',
+      category: 'Helpful',
+      action: 'click',
+      label: window.location.pathname,
+      value: value
+    };
+    ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+  };
+  yesButton.addEventListener('click', () => {
+    yesResponse.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(1);
+  });
+  noButton.addEventListener('click', () => {
+    noResponse.classList.add('feedback--response__visible');
+    disableButtons();
+    sendFeedback(0);
+  });
+</script>
+
+		<br />
+	
+	
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2021 xwos.tech All Rights Reserved</small>
+        
+	
+		
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.11.2/dist/mermaid.min.js" integrity="sha384-m8Pdaep6Qk8sW3J6XhPOiwUww3maU9HxZTLvEfSEB4e1UVvTdHyfJsYmEfYqvwLC" crossorigin="anonymous"></script>
+
+
+
+
+<script src='/js/tabpane-persist.js'></script>
+
+
+
+<script src='/js/deflate.js'></script>
+
+
+ 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.css" integrity="sha384-Cqd8ihRLum0CCg8rz0hYKPoLZ3uw+gES2rXQXycqnL5pgVQIflxAUDS7ZSjITLb5" crossorigin="anonymous">
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/katex.min.js" integrity="sha384-1Or6BdeNQb0ezrmtGeqQHFpppNd7a/gw29xeiSikBbsb44xu3uAo8c7FwbF5jhbd" crossorigin="anonymous"></script>
+ 
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/contrib/mhchem.min.js" integrity="sha384-LIgAiYlGSAdpNC9+YDjDPF6JeS/RRIumtNo0CmyQERZ/+g0h9MbuYQwf/5pQ4Y4M"  crossorigin="anonymous"></script>
+
+
+<script defer src='https://cdn.jsdelivr.net/npm/katex@0.13.2/dist/contrib/auto-render.min.js' integrity='sha384-vZTG03m+2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl' crossorigin='anonymous' onload='renderMathInElement(document.body, null);'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.min.11ef2f106a5a371e54f19c54c90ff03a1fdb94f987a523bad91eebc764bb6f2f.js" integrity="sha256-Ee8vEGpaNx5U8ZxUyQ/wOh/blPmHpSO62R7rx2S7by8=" crossorigin="anonymous"></script>
+
+
+
+<script src='/js/prism.js'></script>
+
+
+
+  </body>
+</html>

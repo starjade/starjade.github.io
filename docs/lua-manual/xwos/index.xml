@@ -1,0 +1,356 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XWOS – XWOS内核库</title>
+    <link>/docs/lua-manual/xwos/</link>
+    <description>Recent content in XWOS内核库 on XWOS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/docs/lua-manual/xwos/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 线程</title>
+      <link>/docs/lua-manual/xwos/thd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/thd/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwosskd&#34;&gt;&lt;strong&gt;包：xwos.skd&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwosskdtt&#34;&gt;&lt;code&gt;xwos.skd.tt()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取当前CPU调度器的系统滴答时间&lt;/li&gt;
+&lt;li&gt;返回值：(number)系统时间&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;xwos.skd.tt()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwosskdtc&#34;&gt;&lt;code&gt;xwos.skd.tc()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取当前CPU调度器的系统滴答计数&lt;/li&gt;
+&lt;li&gt;返回值：(number)滴答计数&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;xwos.skd.tc()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwosskdts&#34;&gt;&lt;code&gt;xwos.skd.ts()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取当前CPU调度器的系统时间戳&lt;/li&gt;
+&lt;li&gt;返回值：(number)系统时间&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;xwos.skd.ts()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;包xwosthd&#34;&gt;&lt;strong&gt;包：xwos.thd&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwosthddofilefile&#34;&gt;&lt;code&gt;xwos.thd.dofile(file)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：建立一个新的线程，并在新线程中执行脚本文件&lt;/li&gt;
+&lt;li&gt;参数file：(string)文件路径&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;childthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.dofile(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;sd:/hw.lua&amp;#34;&lt;/span&gt;)
+childthdsp:stop()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; childthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.dofile(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;sd:/hw.lua&amp;#34;&lt;/span&gt;)
+XWLUA Test Script
+
+Thread strong pointer:	{&lt;span style=&#34;color:#666&#34;&gt;0x20000880&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;63&lt;/span&gt;}
+pi &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;3.1415926535898&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;^&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#666&#34;&gt;2.5060358315688e-94&lt;/span&gt;
+exp(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;22026.465794807&lt;/span&gt;
+t1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;
+t1[&lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;] &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;	&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;6&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;6&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;7&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;7&lt;/span&gt;
+c	c
+b	b
+a	a
+
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; childthdsp:stop()
+&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwosthddostringstr&#34;&gt;&lt;code&gt;xwos.thd.dostring(str)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：建立一个新的线程，并在新线程中执行字符串表示的脚本&lt;/li&gt;
+&lt;li&gt;参数str：(string)脚本&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;script &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#b44&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;mythdsp = xwos.cthd.sp()
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;print(&amp;#34;Thread strong pointer:&amp;#34;, mythdsp)
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;]]&lt;/span&gt;
+strthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.dostring(script)
+strthdsp
+strthdsp:stop()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;script &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#b44&#34;&gt;[[
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;&amp;gt;&amp;gt; mythdsp = xwos.cthd.sp()
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;&amp;gt;&amp;gt; print(&amp;#34;Thread strong pointer:&amp;#34;, mythdsp)
+&lt;/span&gt;&lt;span style=&#34;color:#b44&#34;&gt;&amp;gt;&amp;gt; ]]&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; strthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.dostring(script)
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; Thread strong pointer:	{&lt;span style=&#34;color:#666&#34;&gt;0x20000660&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;67&lt;/span&gt;}
+
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; strthdsp
+{&lt;span style=&#34;color:#666&#34;&gt;0x20000660&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;67&lt;/span&gt;}
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; strthdsp:stop()
+&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwosthdcallfunc&#34;&gt;&lt;code&gt;xwos.thd.call(func)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：建立一个新的线程，并在新线程中执行函数&lt;/li&gt;
+&lt;li&gt;参数func：(function)Lua函数&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;childthd_main&lt;/span&gt; ()
+  mythdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.sp()
+  print(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;Thread strong pointer:&amp;#34;&lt;/span&gt;, mythdsp)
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;end&lt;/span&gt;
+cthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.call(childthd_main)
+cthdsp
+cthdsp:stop()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;function&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;childthd_main&lt;/span&gt; ()
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;   mythdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.sp()
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt;   print(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;Thread strong pointer:&amp;#34;&lt;/span&gt;, mythdsp)
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;end&lt;/span&gt;
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; cthdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.thd.call(childthd_main)
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; Thread strong pointer:	{&lt;span style=&#34;color:#666&#34;&gt;0x20000550&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;69&lt;/span&gt;}
+
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; cthdsp
+{&lt;span style=&#34;color:#666&#34;&gt;0x20000550&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;69&lt;/span&gt;}
+&lt;span style=&#34;color:#666&#34;&gt;&amp;gt;&lt;/span&gt; cthdsp:stop()
+&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;	&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;包xwoscthd&#34;&gt;&lt;strong&gt;包：xwos.cthd&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwoscthdsp&#34;&gt;&lt;code&gt;xwos.cthd.sp()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：返回当前线程的&lt;strong&gt;线程对象强指针类&lt;/strong&gt;对象&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)当前线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mythdsp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.sp()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdsleeptime&#34;&gt;&lt;code&gt;xwos.cthd.sleep(time)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：调用此函数的线程睡眠一段时间&lt;/li&gt;
+&lt;li&gt;参数time：(number, 输入)需要睡眠的时间，单位：纳秒&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：睡眠成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：睡眠失败或中断，返回值为Unix错误码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.sleep(&lt;span style=&#34;color:#666&#34;&gt;1000000000&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 睡眠1s&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdsleepfromorigin-inc&#34;&gt;&lt;code&gt;xwos.cthd.sleepFrom(origin, inc)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：调用此函数的线程从一个时间起点睡眠到另一个时间点&lt;/li&gt;
+&lt;li&gt;参数origin：(number, 输入)时间起点，单位：纳秒&lt;/li&gt;
+&lt;li&gt;参数inc：(number, 输入)期望被唤醒的时间相对于起点的增量，单位：纳秒&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (number)时间起点}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：睡眠成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：睡眠失败或中断，返回值为Unix错误码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;时间起点：新的时间起点&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;origin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.skd.tt()
+cnt &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;repeat&lt;/span&gt;
+  rc, origin &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.sleepFrom(origin, &lt;span style=&#34;color:#666&#34;&gt;1000000000&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 睡眠1s&lt;/span&gt;
+  cnt &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; cnt &lt;span style=&#34;color:#666&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;until&lt;/span&gt; (cnt &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 重复3次&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdyield&#34;&gt;&lt;code&gt;xwos.cthd.yield()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：通知调度器重新选择线程&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;xwos.cthd.yield()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdexitrc&#34;&gt;&lt;code&gt;xwos.cthd.exit(rc)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：调用此函数的线程退出&lt;/li&gt;
+&lt;li&gt;参数rc：(number, 输入)线程退出时的返回值&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;xwos.cthd.exit(&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 线程退出时抛出返回值0&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdshldfrz&#34;&gt;&lt;code&gt;xwos.cthd.shldFrz()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：判断当前线程是否可被冻结&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)是否可冻结
+&lt;ul&gt;
+&lt;li&gt;true：可被冻结&lt;/li&gt;
+&lt;li&gt;false：不可被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;xwoscthdshldstop&#34;&gt;&lt;code&gt;xwos.cthd.shldStop()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：判断当前线程是否可以退出&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)是否可退出
+&lt;ul&gt;
+&lt;li&gt;true：可退出&lt;/li&gt;
+&lt;li&gt;false：不可退出&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- Lua 线程循环的写法&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;repeat&lt;/span&gt;
+  shldStop &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.shldStop()
+  threadLoop()
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;until&lt;/span&gt; (shldStop)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdfrzshldstop&#34;&gt;&lt;code&gt;xwos.cthd.frzShldStop()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：判断当前线程是否可被冻结，如果是，就冻结线程，之后再判断线程是否可以退出&lt;/li&gt;
+&lt;li&gt;返回值：{(boolean)是否可退出, (boolean)是否被冻结过}
+&lt;ul&gt;
+&lt;li&gt;是否可退出
++    true：可退出
++    false：不可退出&lt;/li&gt;
+&lt;li&gt;是否被冻结过
++    true：线程被冻结过
++    false：线程没有冻结过&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- Lua 线程循环的写法&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;repeat&lt;/span&gt;
+  shldStop, froze &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cthd.frzShldStop()
+  threadLoop()
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;until&lt;/span&gt; (shldStop)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwoscthdfrz&#34;&gt;&lt;code&gt;xwos.cthd.frz()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：冻结当前线程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;类thdsp&#34;&gt;&lt;strong&gt;类：thdsp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：线程对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;thdspstop&#34;&gt;&lt;code&gt;thdsp:stop()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：终止子线程并等待它的返回值，最后回收子线程资源&lt;/li&gt;
+&lt;li&gt;参数thdsp：(userdata, 输入)类成员函数的this参数，子线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：{(number)函数的错误码, (number)子线程的返回值}，当函数的错误码为0时，
+子线程的返回值才有效&lt;/li&gt;
+&lt;li&gt;说明：&lt;code&gt;thdsp:stop()&lt;/code&gt;等价于&lt;code&gt;thdsp:cancel() + thdsp:join()&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;rc, childrc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; thdsp:stop()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;thdspcancel&#34;&gt;&lt;code&gt;thdsp:cancel()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：取消子线程并通知它退出&lt;/li&gt;
+&lt;li&gt;返回值：(number)函数的错误码&lt;/li&gt;
+&lt;li&gt;说明：&lt;code&gt;thdsp:cancel()&lt;/code&gt;可中断子线程的阻塞态与睡眠态（互斥锁、
+信号量等的等待状态），并使得子线程调用&lt;code&gt;xwos.cthd.shldStop()&lt;/code&gt;时获得
+返回值&lt;code&gt;true&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; thdsp:cancel()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;thdspjoin&#34;&gt;&lt;code&gt;thdsp:join()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待线程结束并获取它的返回值，最后回收线程资源&lt;/li&gt;
+&lt;li&gt;参数thdsp：(userdata, 输入)类成员函数的this参数，子线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：{(number)函数的错误码, (number)子线程的返回值}，当函数的错误码为0时，
+子线程的返回值才有效&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;rc, childrc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; thdsp:join()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;thdspdetach&#34;&gt;&lt;code&gt;thdsp:detach()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：分离线程&lt;/li&gt;
+&lt;li&gt;参数thdsp：(userdata, 输入)类成员函数的this参数，子线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;说明：
+&lt;ul&gt;
+&lt;li&gt;此函数可将线程设置为&lt;strong&gt;DETACH&lt;/strong&gt;态，处于分离态的线程退出后，系统自动回收资源，
+不需要父线程join()或stop()。&lt;/li&gt;
+&lt;li&gt;与&lt;strong&gt;DETACH&lt;/strong&gt;相反的状态是&lt;strong&gt;JOINABLE&lt;/strong&gt;，通过
+API &lt;code&gt;xwos.thd.dofile(file)&lt;/code&gt;、&lt;code&gt;xwos.thd.dostring(str)&lt;/code&gt;
+以及&lt;code&gt;xwos.thd.call(func)&lt;/code&gt;创建的子线程都是&lt;strong&gt;JOINABLE&lt;/strong&gt;态的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;thdspmigratecpu&#34;&gt;&lt;code&gt;thdsp:migrate(cpu)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将线程迁移到目标CPU&lt;/li&gt;
+&lt;li&gt;参数thdsp：(userdata, 输入)类成员函数的this参数，子线程对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数cpu：(number, 输入)目标CPU的ID&lt;/li&gt;
+&lt;li&gt;返回值：(number)函数的错误码&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 锁</title>
+      <link>/docs/lua-manual/xwos/lock/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/lock/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 同步</title>
+      <link>/docs/lua-manual/xwos/sync/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/</guid>
+      <description>
+        
+        
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 电源管理</title>
+      <link>/docs/lua-manual/xwos/pm/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/pm/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwospm&#34;&gt;&lt;strong&gt;包：xwos.pm&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwospmsuspend&#34;&gt;&lt;code&gt;xwos.pm.suspend()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：系统进入低功耗模式&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

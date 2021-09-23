@@ -1,0 +1,661 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XWOS – 同步</title>
+    <link>/docs/lua-manual/xwos/sync/</link>
+    <description>Recent content in 同步 on XWOS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/docs/lua-manual/xwos/sync/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 信号量</title>
+      <link>/docs/lua-manual/xwos/sync/sem/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/sem/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwossem&#34;&gt;&lt;strong&gt;包：xwos.sem&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwossemnewval-max&#34;&gt;&lt;code&gt;xwos.sem.new(val, max)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个信号量&lt;/li&gt;
+&lt;li&gt;参数val：(number, 输入)信号量的初始值&lt;/li&gt;
+&lt;li&gt;参数max：(number, 输入)信号量的最大值&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mysem &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.sem.new(&lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建初始值为0，最大值为10的信号量&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;类semsp&#34;&gt;&lt;strong&gt;类：semsp&lt;/strong&gt;&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：信号量对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semspbindsel&#34;&gt;&lt;code&gt;semsp:bind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：绑定信号量对象到信号选择器&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ECHRNG: 位置超出范围&lt;/li&gt;
+&lt;li&gt;-EALREADY: 同步对象已经绑定到事件对象&lt;/li&gt;
+&lt;li&gt;-EBUSY: 通道已经被其他同步对象独占&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semspunbindsel&#34;&gt;&lt;code&gt;semsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑信号量对象&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semspfreeze&#34;&gt;&lt;code&gt;semsp:freeze()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：解冻信号量&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-EALREADY：信号量已被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semspthaw&#34;&gt;&lt;code&gt;semsp:thaw()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：解冻信号量&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-EALREADY：信号量未被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semsppost&#34;&gt;&lt;code&gt;semsp:post()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：发布信号量&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENEGATIVE：信号量已被冻结&lt;/li&gt;
+&lt;li&gt;-ERANGE：信号量的值已经最大&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;semspwaitop&#34;&gt;&lt;code&gt;semsp:wait([op])&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待并获取信号量&lt;/li&gt;
+&lt;li&gt;参数semsp：(userdata, 输入)类成员函数的this参数，信号量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;可选参数op：
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;t&amp;rdquo;：(string, 输入)尝试等待并获取信号量，若信号量的值小于等于0，立即返回，
+不会等待；&lt;/li&gt;
+&lt;li&gt;time：(number, 输入)期望的等待时间，超时后返回错误码-ETIMEDOUT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-EINVAL：参数错误&lt;/li&gt;
+&lt;li&gt;-ENODATA：尝试失败，仅当存在可选参数&amp;quot;t&amp;quot;时才会出现此错误值&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT：超时&lt;/li&gt;
+&lt;li&gt;-EINTR：等待被中断&lt;/li&gt;
+&lt;li&gt;-ENOTINTHD：不在线程上下文中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 条件量</title>
+      <link>/docs/lua-manual/xwos/sync/cond/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/cond/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwoscond&#34;&gt;&lt;strong&gt;包：xwos.cond&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwoscondnew&#34;&gt;&lt;code&gt;xwos.cond.new()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个条件量&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mycond &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.cond.new()
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;类condsp&#34;&gt;&lt;strong&gt;类：condsp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：条件量对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspbindsel&#34;&gt;&lt;code&gt;condsp:bind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：绑定条件量对象到信号选择器&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ECHRNG: 位置超出范围&lt;/li&gt;
+&lt;li&gt;-EALREADY: 同步对象已经绑定到事件对象&lt;/li&gt;
+&lt;li&gt;-EBUSY: 通道已经被其他同步对象独占&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspunbindsel&#34;&gt;&lt;code&gt;condsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑条件量对象&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspfreeze&#34;&gt;&lt;code&gt;condsp:freeze()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：解冻条件量&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-EALREADY：条件量已被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspthaw&#34;&gt;&lt;code&gt;condsp:thaw()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：解冻条件量&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-EALREADY：条件量未被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspunicast&#34;&gt;&lt;code&gt;condsp:unicast()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：单播条件量对象，只会唤醒第一个线程&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENEGATIVE：条件量已被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspbroadcast&#34;&gt;&lt;code&gt;condsp:broadcast()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：广播条件量对象，等待队列中的所有线程都会被唤醒&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENEGATIVE：条件量已被冻结&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;condspwaitlock-time&#34;&gt;&lt;code&gt;condsp:wait(lock, time)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待并获取条件量&lt;/li&gt;
+&lt;li&gt;参数condsp：(userdata, 输入)类成员函数的this参数，条件量对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数lock：(userdata, 输入)锁对象的强引用指针，可以是
+&lt;ul&gt;
+&lt;li&gt;spinlock&lt;/li&gt;
+&lt;li&gt;seqlock&lt;/li&gt;
+&lt;li&gt;mutex&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;可选参数time：(number, 输入)期望的等待时间，超时后返回错误码-ETIMEDOUT。&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-EINVAL：参数错误&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT：超时&lt;/li&gt;
+&lt;li&gt;-EINTR：等待被中断&lt;/li&gt;
+&lt;li&gt;-ENOTINTHD：不在线程上下文中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 事件标志</title>
+      <link>/docs/lua-manual/xwos/sync/flg/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/flg/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwosflg&#34;&gt;&lt;strong&gt;包：xwos.flg&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwosflgnewnum&#34;&gt;&lt;code&gt;xwos.flg.new(num)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个事件标志&lt;/li&gt;
+&lt;li&gt;参数num：(number, 输入)事件的数量&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;myflg &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.flg.new(&lt;span style=&#34;color:#666&#34;&gt;32&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;类flgsp&#34;&gt;&lt;strong&gt;类：flgsp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：事件标志对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspbmp&#34;&gt;&lt;code&gt;flgsp:bmp()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个位图，位的数量与事件标志中的事件数量相等&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的位图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspnum&#34;&gt;&lt;code&gt;flgsp:num()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取事件标志中事件（位）的数量&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspbindsel&#34;&gt;&lt;code&gt;flgsp:bind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：绑定事件标志对象到信号选择器&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ECHRNG: 位置超出范围&lt;/li&gt;
+&lt;li&gt;-EALREADY: 同步对象已经绑定到事件对象&lt;/li&gt;
+&lt;li&gt;-EBUSY: 通道已经被其他同步对象独占&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspunbindsel&#34;&gt;&lt;code&gt;flgsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑事件标志对象&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspunbindsel-1&#34;&gt;&lt;code&gt;flgsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑事件标志对象&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspread&#34;&gt;&lt;code&gt;flgsp:read()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：发布事件标志&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (userdata)位图}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;位图：事件标志位图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgsps1mmsk&#34;&gt;&lt;code&gt;flgsp:s1m(msk)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：同时设置多个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)事件的位图掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgsps1ipos&#34;&gt;&lt;code&gt;flgsp:s1i(pos)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：设置单个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)事件的序号&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspc0mmsk&#34;&gt;&lt;code&gt;flgsp:c0m(msk)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：同时清除多个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)事件的位图掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspc0ipos&#34;&gt;&lt;code&gt;flgsp:c0i(pos)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：清除单个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)事件的序号&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspx1mmsk&#34;&gt;&lt;code&gt;flgsp:x1m(msk)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：同时翻转多个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)事件的位图掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspx1ipos&#34;&gt;&lt;code&gt;flgsp:x1i(pos)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：翻转单个事件标志位&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)事件的序号&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;&amp;lt;0：错误&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;flgspwaittrigger-consumption-origin-msk-op&#34;&gt;&lt;code&gt;flgsp:wait(trigger, consumption, origin, msk, [op])&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待并获取事件标志&lt;/li&gt;
+&lt;li&gt;参数flgsp：(userdata, 输入)类成员函数的this参数，事件标志对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数trigger：(string, 输入)事件触发条件
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;sa&amp;rdquo;：所有事件位被置1触发&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;so&amp;rdquo;：任意事件位被置1触发&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;ca&amp;rdquo;：所有事件位被清0触发&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;co&amp;rdquo;：任意事件位被清0触发&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;ta&amp;rdquo;：所有事件位发生翻转触发&lt;/li&gt;
+&lt;li&gt;&amp;ldquo;to&amp;rdquo;：任意事件位发生翻转触发&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数consumption：(boolean, 输入)是否消费事件，线程可以选择是否&lt;strong&gt;消费&lt;/strong&gt;事件，
+&lt;strong&gt;消费&lt;/strong&gt;事件是指，当线程等到事件被唤醒，可以选择是否&lt;strong&gt;清除&lt;/strong&gt;事件标志。
+&lt;strong&gt;清除&lt;/strong&gt;的含义是：
+&lt;ul&gt;
+&lt;li&gt;当线程等待的是位图中的事件位被置1，&lt;strong&gt;清除&lt;/strong&gt;是指将这些位清0；&lt;/li&gt;
+&lt;li&gt;当线程等待的是位图中的事件位被清0，&lt;strong&gt;清除&lt;/strong&gt;是指将这些位置1；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数origin：(userdata)事件的位图掩码
+&lt;ul&gt;
+&lt;li&gt;当参数trigger取值&amp;quot;sa&amp;quot;，&amp;ldquo;so&amp;rdquo;，&amp;ldquo;ca&amp;rdquo;，&amp;ldquo;co&amp;rdquo;：(输出) 返回触发时事件对象中位图状态&lt;/li&gt;
+&lt;li&gt;当参数trigger取值&amp;quot;ta&amp;quot;，&amp;ldquo;to&amp;rdquo;：
+&lt;ul&gt;
+&lt;li&gt;(输入) 用于比较的初始值&lt;/li&gt;
+&lt;li&gt;(输出) 返回触发时事件对象中位图状态&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)事件的位图掩码，表示只关注掩码部分的事件&lt;/li&gt;
+&lt;li&gt;可选参数op：
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;t&amp;rdquo;：(string, 输入)尝试等待并获取事件标志，若事件标志的值小于等于0，立即返回，
+不会等待；&lt;/li&gt;
+&lt;li&gt;time：(number, 输入)期望的等待时间，超时后返回错误码-ETIMEDOUT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-EINVAL：参数错误&lt;/li&gt;
+&lt;li&gt;-ENODATA：尝试失败，仅当存在可选参数&amp;quot;t&amp;quot;时才会出现此错误值&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT：超时&lt;/li&gt;
+&lt;li&gt;-EINTR：等待被中断&lt;/li&gt;
+&lt;li&gt;-ENOTINTHD：不在线程上下文中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 线程栅栏</title>
+      <link>/docs/lua-manual/xwos/sync/br/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/br/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwosbr&#34;&gt;&lt;strong&gt;包：xwos.br&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwosbrnewnum&#34;&gt;&lt;code&gt;xwos.br.new(num)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个线程栅栏&lt;/li&gt;
+&lt;li&gt;参数num：(number, 输入)线程槽的数量&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybr &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.br.new(&lt;span style=&#34;color:#666&#34;&gt;32&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;类brsp&#34;&gt;&lt;strong&gt;类：brsp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：线程栅栏对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspbmp&#34;&gt;&lt;code&gt;brsp:bmp()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个位图，位的数量与线程栅栏中的线程槽数量相等&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的位图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspnum&#34;&gt;&lt;code&gt;brsp:num()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取线程栅栏中线程槽（位）的数量&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspbindsel&#34;&gt;&lt;code&gt;brsp:bind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：绑定线程栅栏对象到信号选择器&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ECHRNG: 位置超出范围&lt;/li&gt;
+&lt;li&gt;-EALREADY: 同步对象已经绑定到事件对象&lt;/li&gt;
+&lt;li&gt;-EBUSY: 通道已经被其他同步对象独占&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspunbindsel&#34;&gt;&lt;code&gt;brsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑线程栅栏对象&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspunbindsel-1&#34;&gt;&lt;code&gt;brsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑线程栅栏对象&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;brspsyncpos-msk-time&#34;&gt;&lt;code&gt;brsp:sync(pos, msk, [time])&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待并获取线程栅栏&lt;/li&gt;
+&lt;li&gt;参数brsp：(userdata, 输入)类成员函数的this参数，线程栅栏对象的强引用指针&lt;/li&gt;
+&lt;li&gt;可选参数time：(number, 输入)期望的等待时间，超时后返回错误码-ETIMEDOUT。&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ECHRNG：位置超出范围&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT：超时&lt;/li&gt;
+&lt;li&gt;-EINTR：等待被中断&lt;/li&gt;
+&lt;li&gt;-ENOTINTHD：不在线程上下文中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: 信号选择器</title>
+      <link>/docs/lua-manual/xwos/sync/sel/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwos/sync/sel/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwossel&#34;&gt;&lt;strong&gt;包：xwos.sel&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwosselnewnum&#34;&gt;&lt;code&gt;xwos.sel.new(num)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个信号选择器&lt;/li&gt;
+&lt;li&gt;参数num：(number, 输入)信号槽的数量&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mysel &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwos.sel.new(&lt;span style=&#34;color:#666&#34;&gt;32&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;类selsp&#34;&gt;&lt;strong&gt;类：selsp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：信号选择器对象强指针类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspbmp&#34;&gt;&lt;code&gt;selsp:bmp()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个位图，位的数量与信号选择器中的信号槽数量相等&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的位图&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspnum&#34;&gt;&lt;code&gt;selsp:num()&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：获取信号选择器中信号槽（位）的数量&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)数量&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspbindsel&#34;&gt;&lt;code&gt;selsp:bind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：绑定信号选择器对象到信号选择器&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ECHRNG: 位置超出范围&lt;/li&gt;
+&lt;li&gt;-EALREADY: 同步对象已经绑定到事件对象&lt;/li&gt;
+&lt;li&gt;-EBUSY: 通道已经被其他同步对象独占&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspunbindsel&#34;&gt;&lt;code&gt;selsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑信号选择器对象&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspunbindsel-1&#34;&gt;&lt;code&gt;selsp:unbind(sel)&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从信号选择器上解绑信号选择器对象&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数sel：(userdata, 输入)信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：成功&lt;/li&gt;
+&lt;li&gt;-ENOTCONN: 同步对象没有绑定到事件对象上&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;selspwaitmsk-op&#34;&gt;&lt;code&gt;selsp:wait(msk, [op])&lt;/code&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：等待并获取信号选择器&lt;/li&gt;
+&lt;li&gt;参数selsp：(userdata, 输入)类成员函数的this参数，信号选择器对象的强引用指针&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)待触发的同步对象位图掩码&lt;/li&gt;
+&lt;li&gt;可选参数op：
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;t&amp;rdquo;：(string, 输入)尝试等待并获取事件标志，若事件标志的值小于等于0，立即返回，
+不会等待；&lt;/li&gt;
+&lt;li&gt;time：(number, 输入)期望的等待时间，超时后返回错误码-ETIMEDOUT。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (userdata)位图}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT：超时&lt;/li&gt;
+&lt;li&gt;-EINTR：等待被中断&lt;/li&gt;
+&lt;li&gt;-ENOTINTHD：不在线程上下文中&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;位图：已触发的同步对象位图掩码&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+  </channel>
+</rss>

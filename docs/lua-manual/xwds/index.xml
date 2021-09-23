@@ -1,0 +1,434 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XWOS – 玄武设备栈</title>
+    <link>/docs/lua-manual/xwds/</link>
+    <description>Recent content in 玄武设备栈 on XWOS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/docs/lua-manual/xwds/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: SOC</title>
+      <link>/docs/lua-manual/xwds/soc/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/soc/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;soc对象&#34;&gt;SOC对象&lt;/h2&gt;
+&lt;p&gt;XWLUA不提供动态创建硬件的方法，硬件的创建与初始化都是在C语言中完成。因此，
+XWLUA虚拟机只提供C语言的API，用于将硬件的对象注册到虚拟机中。&lt;/p&gt;
+&lt;h2 id=&#34;c-api参考&#34;&gt;C API参考&lt;/h2&gt;
+&lt;h4 id=&#34;xwlua_soc_register&#34;&gt;xwlua_soc_register&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_soc_register(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L,
+                        &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name,
+                        &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;struct&lt;/span&gt; xwds_soc &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; soc)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：注册SOC对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) SOC在虚拟机中的变量名&lt;/li&gt;
+&lt;li&gt;参数soc：(输入) SOC对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;xwlua_open_brdlibs&lt;/span&gt;(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L)
+{
+        xwlua_soc_register(L, &lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;stm32&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;stm32cube_soc_cb);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwlua_soc_unregister&#34;&gt;xwlua_soc_unregister&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_soc_unregister(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：删除SOC对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) SOC在虚拟机中的变量名&lt;/li&gt;
+&lt;/ul&gt;
+
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: GPIO</title>
+      <link>/docs/lua-manual/xwds/gpio/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/gpio/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwdsgpio&#34;&gt;&lt;strong&gt;包：xwds.gpio&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwdsgpioreqsoc-port-pinmsk&#34;&gt;xwds.gpio.req(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：申请GPIO&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- GPIOA, PIN0 | PIN1&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.req(stm32, &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpiorlssoc-port-pinmsk&#34;&gt;xwds.gpio.rls(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：释放GPIO&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- GPIOA, PIN1 | PIN2&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.rls(stm32, &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpiosetsoc-port-pinmsk&#34;&gt;xwds.gpio.set(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将GPIO的PIN置为高电平&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- GPIOB, PIN2 | PIN4&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.set(stm32, &lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0x10&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpioresetsoc-port-pinmsk&#34;&gt;xwds.gpio.reset(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将GPIO的PIN置为低电平&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- GPIOC, PIN2 | PIN3&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.reset(stm32, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0x4&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;0x8&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpiotogglesoc-port-pinmsk&#34;&gt;xwds.gpio.toggle(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：翻转GPIO电平&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- GPIOD, PIN0 | PIN1&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.toggle(stm32, &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpiooutputsoc-port-pinmsk-out&#34;&gt;xwds.gpio.output(soc, port, pinmsk, out)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：同时输出多个GPIO引脚&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;参数out：(number, 输入)输出值&lt;/li&gt;
+&lt;li&gt;返回值：(number)错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 输出GPIOE，掩码0xFFFFFFFF，输出值0x3&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.output(stm32, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0xFFFFFFFF&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0x3&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsgpioinputsoc-port-pinmsk&#34;&gt;xwds.gpio.input(soc, port, pinmsk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：同时从GPIO端口读取多个引脚的输入值&lt;/li&gt;
+&lt;li&gt;参数soc：(userdata, 输入)BSP中注册的&lt;a href=&#34;../soc&#34;&gt;SOC&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;参数port：(number, 输入)GPIO端口&lt;/li&gt;
+&lt;li&gt;参数pinmsk：(number, 输入)GPIO引脚的掩码&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (number)输入值}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ERANGE: GPIO PORT错误&lt;/li&gt;
+&lt;li&gt;-EBUSY: GPIO PIN已被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 读取GPIOF，掩码0xFFFFFFFF&lt;/span&gt;
+rc, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;in&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.gpio.output(stm32, &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0xFFFFFFFF&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: UART</title>
+      <link>/docs/lua-manual/xwds/uart/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/uart/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;uart对象&#34;&gt;UART对象&lt;/h2&gt;
+&lt;p&gt;XWLUA不提供动态创建硬件的方法，硬件的创建与初始化都是在C语言中完成。因此，
+XWLUA虚拟机只提供C语言的API，用于将硬件的对象注册到虚拟机中。&lt;/p&gt;
+&lt;h2 id=&#34;c-api参考&#34;&gt;C API参考&lt;/h2&gt;
+&lt;h4 id=&#34;xwlua_dmauartc_register&#34;&gt;xwlua_dmauartc_register&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_dmauartc_register(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L,
+                             &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name,
+                             &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;struct&lt;/span&gt; xwds_dmauartc &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; uart)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：注册UART对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) UART在虚拟机中的变量名&lt;/li&gt;
+&lt;li&gt;参数uart：(输入) UART对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;xwlua_open_brdlibs&lt;/span&gt;(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L)
+{
+        xwlua_uart_register(L, &lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;usart1&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;stm32cube_usart1_cb);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwlua_dmauartc_unregister&#34;&gt;xwlua_dmauartc_unregister&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_dmauartc_unregister(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：删除UART对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) UART在虚拟机中的变量名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwdsuart&#34;&gt;&lt;strong&gt;包：xwds.uart&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwdsuartrxuart-size-op&#34;&gt;xwds.uart.rx(uart, size[, op])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：接收数据&lt;/li&gt;
+&lt;li&gt;参数uart：(userdata, 输入)BSP中注册的UART控制器&lt;/li&gt;
+&lt;li&gt;参数size：(number, 输入)期望接收的字节数&lt;/li&gt;
+&lt;li&gt;可选参数op：
+&lt;ul&gt;
+&lt;li&gt;&amp;ldquo;t&amp;rdquo;：(string, 输入)尝试接收，若接收队列为空，立即返回，不会等待；&lt;/li&gt;
+&lt;li&gt;time：(number, 输入)若接收队列为空，期望等待的时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (number)实际接收的字节数, (string)接收到的数据}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ENODATA：尝试上锁失败，仅当存在可选参数&amp;quot;t&amp;quot;或time为0时才会出现此错误值&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT: 超时&lt;/li&gt;
+&lt;li&gt;-EINTR: 等待被中断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 从usart1接收数据，最大接收10个字节，期望等待时间2s&lt;/span&gt;
+rc, rxsize, data &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.uart.rx(usart1, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwdsuarttxuart-txd-size-time&#34;&gt;xwds.uart.tx(uart, txd, size[, time])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：发送数据&lt;/li&gt;
+&lt;li&gt;参数uart：(userdata, 输入)BSP中注册的UART控制器&lt;/li&gt;
+&lt;li&gt;参数txd：(string, 输入)待发送的字节数组&lt;/li&gt;
+&lt;li&gt;参数size：(number, 输入)待发送的字节数&lt;/li&gt;
+&lt;li&gt;参数time：(number, 输入)期望等待的时间&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (number)实际发送的字节数}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT: 超时&lt;/li&gt;
+&lt;li&gt;-EINTR: 等待被中断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 打包{88, 87, 79, 83}&lt;/span&gt;
+txd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;BBBB&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;88&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;87&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;79&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;83&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 发送打包数据，期望等待时间2s&lt;/span&gt;
+rc, txsize &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.uart.tx(usart1, txd, &lt;span style=&#34;color:#666&#34;&gt;#&lt;/span&gt;txd, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: SPI主机模式</title>
+      <link>/docs/lua-manual/xwds/spi-master/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/spi-master/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;spi主机模式控制器对象&#34;&gt;SPI主机模式控制器对象&lt;/h2&gt;
+&lt;p&gt;XWLUA不提供动态创建硬件的方法，硬件的创建与初始化都是在C语言中完成。因此，
+XWLUA虚拟机只提供C语言的API，用于将硬件的对象注册到虚拟机中。&lt;/p&gt;
+&lt;h2 id=&#34;c-api参考&#34;&gt;C API参考&lt;/h2&gt;
+&lt;h4 id=&#34;xwlua_spim_register&#34;&gt;xwlua_spim_register&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_spim_register(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L,
+                         &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name,
+                         &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;struct&lt;/span&gt; xwds_spim &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; spim)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：注册SPI对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) SPI在虚拟机中的变量名&lt;/li&gt;
+&lt;li&gt;参数spi：(输入) SPI对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;xwlua_open_brdlibs&lt;/span&gt;(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L)
+{
+        xwlua_spim_register(L, &lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;spi1m&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;stm32cube_spi1m_cb);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwlua_spim_unregister&#34;&gt;xwlua_spim_unregister&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_spim_unregister(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：删除SPI对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) SPI在虚拟机中的变量名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwdsspim&#34;&gt;&lt;strong&gt;包：xwds.spim&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwdsspimxferspim-txd-rx-size-time&#34;&gt;xwds.spim.xfer(spim, txd, rx, size[, time])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：启动数据传输&lt;/li&gt;
+&lt;li&gt;参数spim：(userdata, 输入)BSP中注册的SPI控制器&lt;/li&gt;
+&lt;li&gt;参数txd：(string, 输入)待发送的字节数组，可为nil，表示只接收不发送&lt;/li&gt;
+&lt;li&gt;参数rx：(boolean, 输入)是否接收数据&lt;/li&gt;
+&lt;li&gt;参数size：(number, 输入)期望传输的字节数&lt;/li&gt;
+&lt;li&gt;参数time：(number, 输入)期望等待的时间&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (number)实际传输的字节数, (string)接收到的数据}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT: 超时&lt;/li&gt;
+&lt;li&gt;-EINTR: 等待被中断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;实际传输的字节数：&amp;lt;=期望传输的字节数&lt;/li&gt;
+&lt;li&gt;接收到的数据：当rx为false时，此返回值不存在&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 打包{88, 87, 79, 83}&lt;/span&gt;
+txd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;BBBB&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;88&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;87&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;79&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;83&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 发送打包数据，返回接收到的数据，期望等待时间2s&lt;/span&gt;
+rc, size, rxd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwds.spim.xfer(spi1m, txd, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+    <item>
+      <title>Docs: IIC主机模式</title>
+      <link>/docs/lua-manual/xwds/iic-master/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwds/iic-master/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;iic主机模式控制器对象&#34;&gt;IIC主机模式控制器对象&lt;/h2&gt;
+&lt;p&gt;XWLUA不提供动态创建硬件的方法，硬件的创建与初始化都是在C语言中完成。因此，
+XWLUA虚拟机只提供C语言的API，用于将硬件的对象注册到虚拟机中。&lt;/p&gt;
+&lt;h2 id=&#34;c-api参考&#34;&gt;C API参考&lt;/h2&gt;
+&lt;h4 id=&#34;xwlua_i2cm_register&#34;&gt;xwlua_i2cm_register&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_i2cm_register(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L,
+                         &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name,
+                         &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;struct&lt;/span&gt; xwds_i2cm &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; i2cm)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：注册I2C对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) I2C在虚拟机中的变量名&lt;/li&gt;
+&lt;li&gt;参数i2c：(输入) I2C对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#00a000&#34;&gt;xwlua_open_brdlibs&lt;/span&gt;(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L)
+{
+        xwlua_i2cm_register(L, &lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;i2c2m&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt;stm32cube_i2c2m_cb);
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;xwlua_i2cm_unregister&#34;&gt;xwlua_i2cm_unregister&lt;/h4&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-C&#34; data-lang=&#34;C&#34;&gt;&lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;void&lt;/span&gt; xwlua_i2cm_unregister(lua_State &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; L, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#0b0;font-weight:bold&#34;&gt;char&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;*&lt;/span&gt; name)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;简介：删除I2C对象&lt;/li&gt;
+&lt;li&gt;参数L：(输入) 虚拟机&lt;/li&gt;
+&lt;li&gt;参数name：(输入) I2C在虚拟机中的变量名&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;类i2cm&#34;&gt;&lt;strong&gt;类：i2cm&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;i2cmxferaddr-start-stop-read-size-txd-time&#34;&gt;i2cm:xfer(addr, start, stop, read, size[, txd, time])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：启动数据传输&lt;/li&gt;
+&lt;li&gt;参数addr：(number, 输入)I2C外设的地址&lt;/li&gt;
+&lt;li&gt;参数start：(boolean, 输入)是否产生&lt;strong&gt;Start&lt;/strong&gt;条件&lt;/li&gt;
+&lt;li&gt;参数stop：(boolean, 输入)是否产生&lt;strong&gt;Stop&lt;/strong&gt;条件&lt;/li&gt;
+&lt;li&gt;参数read：(boolean, 输入)方向是否为&lt;strong&gt;读&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;参数size：(number, 输入)本次数据传输的的字节数&lt;/li&gt;
+&lt;li&gt;参数txd：(string, 输入)待发送的字节数组&lt;/li&gt;
+&lt;li&gt;参数time：(number, 输入)期望等待的时间&lt;/li&gt;
+&lt;li&gt;返回值：{(number)错误码, (string)接收到的数据}
+&lt;ul&gt;
+&lt;li&gt;错误码
+&lt;ul&gt;
+&lt;li&gt;0：无错误&lt;/li&gt;
+&lt;li&gt;-ETIMEDOUT: 超时&lt;/li&gt;
+&lt;li&gt;-EINTR: 等待被中断&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 向EEPROM的0地址写入4字节数据&lt;/span&gt;
+addr &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0x00&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 打包{地址, 88, 87, 79, 83}&lt;/span&gt;
+txd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;BBBBB&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;88&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;87&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;79&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;83&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 写入地址和数据&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i2c2m:xfer(&lt;span style=&#34;color:#666&#34;&gt;0xA0&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;#&lt;/span&gt;txd, txd, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 向EEPROM的0地址读出4字节数据&lt;/span&gt;
+addr &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0x00&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 打包{0}&lt;/span&gt;
+txd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; string.pack(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;B&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;0&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 写入地址&lt;/span&gt;
+rc &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i2c2m:xfer(&lt;span style=&#34;color:#666&#34;&gt;0xA0&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;#&lt;/span&gt;txd, txd, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+&lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 读出数据&lt;/span&gt;
+rc, rxd &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; i2c2m:xfer(&lt;span style=&#34;color:#666&#34;&gt;0xA0&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2000000000&lt;/span&gt;)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+  </channel>
+</rss>

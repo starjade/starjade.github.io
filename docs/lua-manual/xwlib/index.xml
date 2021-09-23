@@ -1,0 +1,510 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>XWOS – 基本函数库</title>
+    <link>/docs/lua-manual/xwlib/</link>
+    <description>Recent content in 基本函数库 on XWOS</description>
+    <generator>Hugo -- gohugo.io</generator>
+    
+	  <atom:link href="/docs/lua-manual/xwlib/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+    <item>
+      <title>Docs: 位图</title>
+      <link>/docs/lua-manual/xwlib/bitmap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/docs/lua-manual/xwlib/bitmap/</guid>
+      <description>
+        
+        
+        &lt;h2 id=&#34;xwlua-api参考&#34;&gt;XWLUA API参考&lt;/h2&gt;
+&lt;h3 id=&#34;包xwlibbmp&#34;&gt;&lt;strong&gt;包：xwlib.bmp&lt;/strong&gt;&lt;/h3&gt;
+&lt;h4 id=&#34;xwlibbmpnewbits&#34;&gt;xwlib.bmp.new(bits)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：新建一个位图数据结构&lt;/li&gt;
+&lt;li&gt;参数bits：(number, 输入)位图中包含位的数量&lt;/li&gt;
+&lt;li&gt;返回值：(userdata)新的位图&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;运算符&#34;&gt;&lt;strong&gt;运算符&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：位图支持部分Lua运算符&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;位与-&#34;&gt;&lt;strong&gt;位与 &amp;amp;&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：两个位图按位进行与运算&lt;/li&gt;
+&lt;li&gt;说明：要求两个位图的位数相同。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图2&lt;/span&gt;
+mybmp2:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填清0&lt;/span&gt;
+mybmp2:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;7&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;8&lt;/span&gt;)
+mybmp3 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mybmp1 &lt;span style=&#34;color:#666&#34;&gt;&amp;amp;&lt;/span&gt; mybmp2 &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- mybmp1与mybmp2按位进行与运算&lt;/span&gt;
+print(mybmp3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;00000000000000&lt;/span&gt;FF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;位或-&#34;&gt;&lt;strong&gt;位或 |&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：两个位图按位进行或运算&lt;/li&gt;
+&lt;li&gt;说明：要求两个位图的位数相同。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填清0&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图2&lt;/span&gt;
+mybmp2:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填清0&lt;/span&gt;
+mybmp2:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;7&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;8&lt;/span&gt;)
+mybmp3 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mybmp1 &lt;span style=&#34;color:#666&#34;&gt;|&lt;/span&gt; mybmp2 &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- mybmp1与mybmp2按位进行与运算&lt;/span&gt;
+print(mybmp3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;00000000000000&lt;/span&gt;FF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;位异或-&#34;&gt;&lt;strong&gt;位异或 ~&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：两个位图按位进行异或运算&lt;/li&gt;
+&lt;li&gt;说明：要求两个位图的位数相同。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图2&lt;/span&gt;
+mybmp2:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填清0&lt;/span&gt;
+mybmp2:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;6&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;7&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;8&lt;/span&gt;)
+mybmp3 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; mybmp1 &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt; mybmp2 &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- mybmp1与mybmp2按位进行与运算&lt;/span&gt;
+print(mybmp3)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFF00
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;位取反-&#34;&gt;&lt;strong&gt;位取反 ~&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：位图按位取反&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#666&#34;&gt;~&lt;/span&gt;mybmp1
+print(mybmp1)
+print(mybmp2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFFFF
+&lt;span style=&#34;color:#666&#34;&gt;0000000000000000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;计算长度&#34;&gt;**计算长度&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：计算位图的长度&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+print(&lt;span style=&#34;color:#666&#34;&gt;#&lt;/span&gt;mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;比较相等-&#34;&gt;&lt;strong&gt;比较相等 ==&lt;/strong&gt;&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：要求两个位图的位数相同。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图2&lt;/span&gt;
+mybmp2:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;if&lt;/span&gt; (mybmp1 &lt;span style=&#34;color:#666&#34;&gt;==&lt;/span&gt; mybmp2) &lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;then&lt;/span&gt;
+  print(&lt;span style=&#34;color:#b44&#34;&gt;&amp;#34;equal&amp;#34;&lt;/span&gt;)
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;end&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;equal
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;类bmp&#34;&gt;&lt;strong&gt;类：bmp&lt;/strong&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;说明：位图类&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;bmpfill&#34;&gt;bmp:fill()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将位图全部填1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFFFF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpzero&#34;&gt;bmp:zero()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将位图全部清0&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充0&lt;/span&gt;
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;0000000000000000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpassignopd&#34;&gt;bmp:assign(opd)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：赋值位图&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，目的位图对象&lt;/li&gt;
+&lt;li&gt;参数opd：(userdata, 输入)源位图对象&lt;/li&gt;
+&lt;li&gt;说明：
+&lt;ul&gt;
+&lt;li&gt;此函数将位图opd中的内容拷贝到位图bmp中，属于深拷贝&lt;/li&gt;
+&lt;li&gt;此函数与&lt;code&gt;bmp = opd&lt;/code&gt;不同，&lt;code&gt;bmp = opd&lt;/code&gt;只是将引用bmp指向opd，bmp
+原来的对象如果没有被别的引用持有，将会被虚拟机回收掉，属于浅拷贝。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp1 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图1&lt;/span&gt;
+mybmp1:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 全部填充1&lt;/span&gt;
+mybmp2 &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图2&lt;/span&gt;
+mybmp2:assign(mybmp1)
+print(mybmp1)
+print(mybmp2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFFFF
+FFFFFFFFFFFFFFFF
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpweight&#34;&gt;bmp:weight()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：计算位图中1的个数&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;返回值：(number)位图中1的个数&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第10位填充1&lt;/span&gt;
+print(mybmp:weight())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpffs&#34;&gt;bmp:ffs()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从位图的最低位开始，查找第一个被置1的位的序号&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;返回值：(number)序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的，返回0表示没有找到1。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第10位填充1&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第11位填充1&lt;/span&gt;
+print(mybmp:ffs())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpffz&#34;&gt;bmp:ffz()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从位图的最低位开始，查找第一个被清0的位的序号&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;返回值：(number)序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的，返回0表示没有找到0。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第10位填充1&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第11位填充1&lt;/span&gt;
+print(mybmp:ffz())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpfls&#34;&gt;bmp:fls()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从位图的最高位开始，查找第一个被置1的位的序号&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;返回值：(number)序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的，返回0表示没有找到1。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第10位填充1&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第11位填充1&lt;/span&gt;
+print(mybmp:fls())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpflz&#34;&gt;bmp:flz()&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：从位图的最高位开始，查找第一个被清0的位的序号&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;返回值：(number)序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的，返回0表示没有找到0。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第10位填充1&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第11位填充1&lt;/span&gt;
+print(mybmp:flz())
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmps1ipos1-pos2-&#34;&gt;bmp:s1i(pos1[, pos2, &amp;hellip;])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：依次将位图中给定位置的位设置为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数pos1：(number, 输入)位的序号&lt;/li&gt;
+&lt;li&gt;可选参数pos2, &amp;hellip;：(number, 输入)剩余位的序号列表&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填充1&lt;/span&gt;
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;000000000000020&lt;/span&gt;B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmps1mmsk&#34;&gt;bmp:s1m(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将位图中的掩码部分全部设置为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1m(mymsk)
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;000000000000020&lt;/span&gt;B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpc0ipos1-pos2-&#34;&gt;bmp:c0i(pos1[, pos2, &amp;hellip;])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：依次将位图中给定位置的位设置为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)位的序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 填1&lt;/span&gt;
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位清0&lt;/span&gt;
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFDF4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpc0mmsk&#34;&gt;bmp:c0m(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将位图中的掩码部分全部设置为0&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 填1&lt;/span&gt;
+mybmp:c0m(mymsk)
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;FFFFFFFFFFFFFDF4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpx1ipos1-pos2-&#34;&gt;bmp:x1i(pos1[, pos2, &amp;hellip;])&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：依次将位图中给定位置的位翻转&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)位的序号&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:x1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位翻转&lt;/span&gt;
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;000000000000020&lt;/span&gt;B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpx1mmsk&#34;&gt;bmp:x1m(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：将位图中的掩码部分全部翻转&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:x1m(mymsk)
+print(mybmp)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#666&#34;&gt;000000000000020&lt;/span&gt;B
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpt1ipos&#34;&gt;bmp:t1i(pos)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：测试位图中的某个位是否为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数pos：(number, 输入)位的序号&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)
+&lt;ul&gt;
+&lt;li&gt;true：1&lt;/li&gt;
+&lt;li&gt;false：0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;说明：为了和Lua语言保持一致，序号从1开始的。&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 填1&lt;/span&gt;
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位清0&lt;/span&gt;
+print(mybmp:t1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;))
+print(mybmp:t1i(&lt;span style=&#34;color:#666&#34;&gt;11&lt;/span&gt;))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpt1mamsk&#34;&gt;bmp:t1ma(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：测试位图中的掩码部分是否全部为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)
+&lt;ul&gt;
+&lt;li&gt;true：全部为1&lt;/li&gt;
+&lt;li&gt;false：不是全部为1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2位填1&lt;/span&gt;
+print(mybmp:t1ma(mymsk))
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第4, 10位填1&lt;/span&gt;
+print(mybmp:t1ma(mymsk))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpt1momsk&#34;&gt;bmp:t1mo(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：测试位图中的掩码部分是否至少有1位为1&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)
+&lt;ul&gt;
+&lt;li&gt;true：至少有1位为1&lt;/li&gt;
+&lt;li&gt;false：全部为0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2位填1&lt;/span&gt;
+print(mybmp:t1mo(mymsk))
+mybmp:s1i(&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第4, 10位填1&lt;/span&gt;
+print(mybmp:t1mo(mymsk))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpt0mamsk&#34;&gt;bmp:t0ma(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：测试位图中的掩码部分是否全部为0&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)
+&lt;ul&gt;
+&lt;li&gt;true：全部为0&lt;/li&gt;
+&lt;li&gt;false：不是全部为0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 填1&lt;/span&gt;
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2位清0&lt;/span&gt;
+print(mybmp:t0ma(mymsk))
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第4, 10位清0&lt;/span&gt;
+print(mybmp:t0ma(mymsk))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;false&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;bmpt0momsk&#34;&gt;bmp:t0mo(msk)&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;简介：测试位图中的掩码部分是否至少有1位为0&lt;/li&gt;
+&lt;li&gt;参数bmp：(userdata, 输入)类成员函数的this参数，位图对象&lt;/li&gt;
+&lt;li&gt;参数msk：(userdata, 输入)掩码位图&lt;/li&gt;
+&lt;li&gt;返回值：(boolean)
+&lt;ul&gt;
+&lt;li&gt;true：至少有1位为0&lt;/li&gt;
+&lt;li&gt;false：全部为1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;示例：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;mybmp &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图&lt;/span&gt;
+mymsk &lt;span style=&#34;color:#666&#34;&gt;=&lt;/span&gt; xwlib.bmp.new(&lt;span style=&#34;color:#666&#34;&gt;64&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 创建一个包含64个位的位图掩码&lt;/span&gt;
+mymsk:zero() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 清0&lt;/span&gt;
+mymsk:s1i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2, 4, 10位填1&lt;/span&gt;
+mybmp:fill() &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 填1&lt;/span&gt;
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;2&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第1, 2位清0&lt;/span&gt;
+print(mybmp:t0mo(mymsk))
+mybmp:c0i(&lt;span style=&#34;color:#666&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#666&#34;&gt;10&lt;/span&gt;) &lt;span style=&#34;color:#080;font-style:italic&#34;&gt;-- 第4, 10位清0&lt;/span&gt;
+print(mybmp:t0mo(mymsk))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;示例输出：&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;span style=&#34;color:#a2f;font-weight:bold&#34;&gt;true&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+      </description>
+    </item>
+    
+  </channel>
+</rss>
